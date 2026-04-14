@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이샤 | 소식{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/isha_news.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="isha-news-page">
+  <div class="cosmic-bg">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="stars"></div>
+    <div class="grid-glow"></div>
+    <div class="dust-layer"></div>
+  </div>
+
+  <div class="news-top-bg" aria-hidden="true">
+    <div class="news-page-bg"></div>
+    <div class="news-bg-photo"></div>
+    <div class="news-top-overlay"></div>
+  </div>
+
+  <main class="news-main">
+    <section class="news-hero reveal">
+      <div class="section-head center">
+        <p class="section-kicker">Isha Updates</p>
+        <h1 class="page-title">이샤의 <span>소식</span></h1>
+        <p class="page-desc">
+          공지사항, 업데이트, 일정과 아카이브를 한눈에 확인할 수 있는 공간입니다.
+        </p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">전체 게시글</div>
+          <div class="stat-val" id="totalPosts">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">이번 달 새 소식</div>
+          <div class="stat-val" id="monthlyPosts">—<span>개</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">공지 / 중요</div>
+          <div class="stat-val" id="noticeCnt">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">데뷔일로부터</div>
+          <div class="stat-val" id="daysSince">—<span>일</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="news-board reveal">
+      <div class="pinned-notice" id="pinnedCard">
+        <div class="pinned-notice-inner">
+          <div class="pin-icon">
+            <img src="{% static 'img/fan/fan_source.png' %}" alt="Isha logo" class="pin-img">
+          </div>
+
+          <div class="pinned-notice-content">
+            <div class="pinned-label">Pinned Notice</div>
+            <div class="pinned-title" id="pinnedTitle">로딩 중...</div>
+            <div class="pinned-meta" id="pinnedMeta">—</div>
+          </div>
+
+          <div class="pinned-arrow">›</div>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">전체</button>
+        <button class="filter-btn" data-filter="notice">공지</button>
+        <button class="filter-btn" data-filter="update">업데이트</button>
+        <button class="filter-btn" data-filter="schedule">일정</button>
+        <button class="filter-btn" data-filter="archive">아카이브</button>
+
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input class="search-input" type="text" placeholder="검색..." id="searchInput">
+        </div>
+      </div>
+
+      <div class="post-list" id="postList"></div>
+      <div class="pagination" id="pagination"></div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-overlay" id="readModal">
+  <div class="modal" id="readModalContent">
+    <div class="modal-header">
+      <div class="modal-tags" id="modalTags"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-meta-row" id="modalMeta"></div>
+    </div>
+
+    <div class="modal-divider"></div>
+    <div class="modal-body" id="modalBody"></div>
+
+    <div class="modal-close-row">
+      {% if request.user.is_authenticated and request.user.isStaff %}
+      <button class="btn-danger" id="newsDeleteBtn" type="button">삭제</button>
+      <button class="btn-submit" id="newsEditBtn" type="button">수정</button>
+      {% endif %}
+      <button class="modal-close-btn" id="readModalClose" type="button">닫기</button>
+    </div>
+  </div>
+</div>
+
+{% if request.user.is_authenticated and request.user.isStaff %}
+<div class="modal-overlay" id="writeModal">
+  <div class="modal write-modal editor-modal">
+    <input type="hidden" id="editingPostId">
+
+    <h2 class="modal-title editor-title-row">
+      <span id="writeModalTitleText">새 게시글 작성</span>
+      <span class="modal-admin-label">관리자 전용</span>
+    </h2>
+
+    <p class="editor-helper-text">
+      텍스트와 이미지를 원하는 순서대로 추가해 이샤의 소식을 작성할 수 있어요.
+    </p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">카테고리</label>
+        <select class="form-select" id="newCategory">
+          <option value="notice">공지사항</option>
+          <option value="update">업데이트</option>
+          <option value="schedule">일정</option>
+          <option value="archive">아카이브</option>
+          <option value="important">중요</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">고정 여부</label>
+        <select class="form-select" id="newPinned">
+          <option value="false">일반 게시글</option>
+          <option value="true">고정 공지로 설정</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">제목</label>
+      <input class="form-input" type="text" id="newTitle" placeholder="게시글 제목을 입력하세요">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">추가 내용 요약 <span class="label-sub">선택</span></label>
+      <input class="form-input" type="text" id="newSummary" placeholder="예: 방송 일정 및 안내 사항이 추가되었습니다.">
+    </div>
+
+    <div class="form-group">
+      <div class="editor-label-row">
+        <label class="form-label">본문 블록 편집기</label>
+        <div class="editor-toolbar">
+          <button type="button" class="editor-add-btn" id="addTextBlockBtn">텍스트 추가</button>
+          <button type="button" class="editor-add-btn" id="addImageBlockBtn">이미지 추가</button>
+        </div>
+      </div>
+      <div class="editor-blocks" id="editorBlocks"></div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-cancel" id="writeModalClose" type="button">취소</button>
+      <button class="btn-submit" id="submitPostBtn" type="button">저장</button>
+    </div>
+  </div>
+</div>
+
+<button class="admin-fab" id="adminFab" title="새 글 작성" aria-label="새 글 작성">＋</button>
+{% endif %}
+
+<script>
+  function navigateTo(url) {
+    document.body.classList.add('fade-out');
+    setTimeout(() => {
+      window.location.href = url;
+    }, 300);
+  }
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/isha_news.js' %}"></script>
+{% endblock %}

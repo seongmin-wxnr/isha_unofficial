@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이샤 | 일정{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/isha_schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="isha-schedule-page">
+  <div class="cosmic-bg">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="stars"></div>
+    <div class="grid-glow"></div>
+    <div class="dust-layer"></div>
+  </div>
+
+  <section class="schedule-hero">
+    <div class="schedule-hero-bg-media" aria-hidden="true">
+      <video class="section-bg-video schedule-bg-video" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'img/background/isha0204.mp4' %}" type="video/mp4">
+      </video>
+    </div>
+    <div class="schedule-hero-overlay" aria-hidden="true"></div>
+
+    <div class="page-wrap">
+      <div class="page-header reveal">
+        <div class="eyebrow">Weekly Schedule</div>
+        <h1 class="page-title">이샤 <span>일정</span></h1>
+        <p class="page-desc">이샤의 방송 일정과 예정된 소식을 날짜별로 확인하세요.</p>
+      </div>
+
+      <div class="stats-row reveal">
+        <div class="stat-card">
+          <div class="stat-label">이번 주 일정 수</div>
+          <div class="stat-val" id="totalSchedules">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">일정 등록 일수</div>
+          <div class="stat-val" id="activeDays">0<span>일</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">현재 주차</div>
+          <div class="stat-val" id="currentWeekLabel">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">관리 상태</div>
+          <div class="stat-val" id="scheduleModeLabel">읽기<span>전용</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="schedule-section reveal">
+    <div class="schedule-section-inner">
+      <div class="schedule-toolbar">
+        <div class="week-nav">
+          <button class="week-btn" id="prevWeekBtn" type="button">‹ 이전 주</button>
+          <div class="week-range" id="weekRangeLabel">로딩 중...</div>
+          <button class="week-btn" id="nextWeekBtn" type="button">다음 주 ›</button>
+        </div>
+        <button class="week-btn accent" id="todayWeekBtn" type="button">이번 주</button>
+      </div>
+
+      <div class="schedule-board" id="scheduleBoard"></div>
+    </div>
+  </section>
+</div>
+
+<div class="modal-overlay" id="scheduleReadModal">
+  <div class="modal schedule-read-modal">
+    <div class="schedule-read-top">
+      <div class="schedule-read-badge" id="scheduleReadType"></div>
+      <h2 class="modal-title schedule-read-title" id="scheduleReadTitle"></h2>
+      <div class="schedule-read-meta" id="scheduleReadMeta"></div>
+    </div>
+
+    <div class="modal-divider"></div>
+
+    <div class="schedule-read-body">
+      <div class="schedule-read-card" id="scheduleReadInfo"></div>
+      <div class="schedule-read-desc" id="scheduleReadDesc"></div>
+    </div>
+
+    <div class="modal-close-row schedule-read-actions">
+      {% if request.user.is_authenticated and request.user.isStaff %}
+      <button class="btn-submit" id="scheduleEditFromReadBtn" type="button">수정</button>
+      {% endif %}
+      <button class="modal-close-btn" id="scheduleReadModalClose" type="button">닫기</button>
+    </div>
+  </div>
+</div>
+
+{% if request.user.is_authenticated and request.user.isStaff %}
+<div class="modal-overlay" id="scheduleModal">
+  <div class="modal write-modal schedule-modal">
+    <h2 class="modal-title">
+      일정 관리
+      <span class="modal-admin-label">관리자 전용</span>
+    </h2>
+
+    <input type="hidden" id="scheduleEditId">
+
+    <div class="form-row three-cols">
+      <div class="form-group">
+        <label class="form-label">날짜</label>
+        <input class="form-input" type="date" id="scheduleDateInput">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">유형</label>
+        <select class="form-select" id="scheduleTypeInput">
+          <option value="stream">방송</option>
+          <option value="notice">공지</option>
+          <option value="event">이벤트</option>
+          <option value="etc">기타</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">카드 색상</label>
+        <select class="form-select" id="scheduleColorInput">
+          <option value="white">화이트</option>
+          <option value="blue">블루</option>
+          <option value="sky">스카이</option>
+          <option value="silver">실버</option>
+          <option value="soft">소프트</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">제목</label>
+      <input class="form-input" type="text" id="scheduleTitleInput" placeholder="일정 제목을 입력하세요">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">부제목 / 추가 설명</label>
+      <input class="form-input" type="text" id="scheduleSubtitleInput" placeholder="선택 입력">
+    </div>
+
+    <div class="form-row three-cols">
+      <div class="form-group">
+        <label class="form-label">시작 시간</label>
+        <input class="form-input" type="time" id="scheduleStartTimeInput">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">종료 시간</label>
+        <input class="form-input" type="time" id="scheduleEndTimeInput">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">정렬 순서</label>
+        <input class="form-input" type="number" id="scheduleSortOrderInput" min="0" value="0">
+      </div>
+    </div>
+
+    <div class="form-actions schedule-actions">
+      <button class="btn-danger" id="scheduleDeleteBtn" type="button">삭제</button>
+      <div class="schedule-actions-right">
+        <button class="btn-cancel" id="scheduleModalClose" type="button">취소</button>
+        <button class="btn-submit" id="scheduleSubmitBtn" type="button">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="admin-fab" id="scheduleAdminFab" title="일정 추가" aria-label="일정 추가">＋</button>
+{% endif %}
+
+<script>
+  window.ISHA_IS_AUTHENTICATED = "{{ request.user.is_authenticated|yesno:'true,false' }}" === "true";
+  window.ISHA_IS_STAFF = "{{ request.user.isStaff|yesno:'true,false' }}" === "true";
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/isha_schedule.js' %}"></script>
+{% endblock %}

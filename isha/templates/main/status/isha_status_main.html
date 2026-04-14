@@ -1,0 +1,378 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이샤 | 비공식 방송국 확인{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/isha_status_main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="isha-page">
+  <div class="cosmic-bg">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="stars"></div>
+    <div class="grid-glow"></div>
+    <div class="dust-layer"></div>
+  </div>
+
+  <section class="hub-hero reveal" id="about">
+    <div class="hero-bg-media" aria-hidden="true">
+      <video class="section-bg-video hero-bg-video" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'img/background/isha0204.mp4' %}" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hub-hero-inner">
+      <div class="hub-status-panel">
+        <p class="hero-kicker">Isha Hub</p>
+        <h1>
+          이샤의 순간을<br>
+          한눈에 모아보는<br>
+          팬 허브 공간
+        </h1>
+        <p class="hero-desc">
+          이샤의 방송국 상태를 한 눈에 확인해보세요 !
+          치지직 생방송 상태, 유튜브,치지직 다시보기를 모아두었습니다.
+        </p>
+
+        <div class="hub-status-card" id="liveStatusCard">
+          <div class="status-badge" id="liveStatusBadge">CHECKING</div>
+          <div class="status-title" id="liveStatusTitle">라이브 상태를 확인하는 중입니다.</div>
+          <div class="status-desc" id="liveStatusDesc">
+            잠시만 기다려주세요.
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#updates" class="btn btn-primary">최신 소식 보기</a>
+          <a href="#videoHub" class="btn btn-secondary">유튜브 영상 보기</a>
+          <a href="/schedule/" class="btn btn-secondary">일정 페이지 이동</a>
+        </div>
+
+        <ul class="hero-meta">
+          <li>
+            <span class="meta-label">CHZZK</span>
+            <span class="meta-value">이샤</span>
+          </li>
+          <li>
+            <span class="meta-label">YouTube</span>
+            <span class="meta-value">@ishawaddo</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hub-highlight-column">
+        <article class="highlight-card glass-card">
+          <span class="card-mini-badge">Pinned Notice</span>
+          <h3 id="heroPinnedTitle">대표 공지를 불러오는 중...</h3>
+          <p id="heroPinnedSummary">
+            최근 공지 또는 고정 공지가 이 영역에 반영됩니다.
+          </p>
+          <a href="/news/" class="card-link">공지사항 페이지로 이동</a>
+        </article>
+
+        <article class="highlight-card glass-card">
+          <span class="card-mini-badge">Next Schedule</span>
+          <h3 id="heroNextScheduleTitle">예정 일정을 불러오는 중...</h3>
+          <p id="heroNextScheduleSummary">
+            가장 가까운 예정 일정이 이 영역에 표시됩니다.
+          </p>
+          <a href="/schedule/" class="card-link">전체 일정 보기</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ch-profile reveal" id="isha-profile">
+    <div class="featured-bg" aria-hidden="true"></div>
+    <div class="featured-overlay"></div>
+
+    <div class="ch-profile-inner">
+
+      <!-- 상단: 프로필 헤더 카드 -->
+      <div class="ch-header-card glass-card">
+        <div class="ch-avatar-wrap">
+          <img src="{% static 'img/isha_int.png' %}" alt="이샤" class="ch-avatar">
+        </div>
+        <div class="ch-header-info">
+          <p class="ch-sub-name">ISHA · 이샤</p>
+          <h2 class="ch-name">이샤</h2>
+          <div class="ch-tags">
+            <span class="ch-tag">버튜버</span>
+            <span class="ch-tag">개인</span>
+            <span class="ch-tag">북극여우</span>
+          </div>
+        </div>
+        <div class="ch-header-links">
+          <a href="https://chzzk.naver.com/d9c00ea08106b660e26abcd730e7d796" target="_blank" rel="noopener noreferrer" class="ch-platform-btn ch-btn-chzzk">
+            <span class="ch-platform-icon">🎮</span>
+            <span>
+              <span class="ch-platform-label">치지직</span>
+              <span class="ch-platform-handle">이샤</span>
+            </span>
+          </a>
+          <a href="https://www.youtube.com/@ishawaddo" target="_blank" rel="noopener noreferrer" class="ch-platform-btn ch-btn-youtube">
+            <span class="ch-platform-icon">▶</span>
+            <span>
+              <span class="ch-platform-label">유튜브</span>
+              <span class="ch-platform-handle">@ishawaddo</span>
+            </span>
+          </a>
+          <a href="https://x.com/ishawaddo" target="_blank" rel="noopener noreferrer" class="ch-platform-btn ch-btn-x">
+            <span class="ch-platform-icon">𝕏</span>
+            <span>
+              <span class="ch-platform-label">X (트위터)</span>
+              <span class="ch-platform-handle">@ishawaddo</span>
+            </span>
+          </a>
+          <a href="https://cafe.naver.com/ishawaddo" target="_blank" rel="noopener noreferrer" class="ch-platform-btn ch-btn-cafe">
+            <span class="ch-platform-icon">☕</span>
+            <span>
+              <span class="ch-platform-label">공식 카페</span>
+              <span class="ch-platform-handle">이샷집센또</span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 하단: 프로필 상세 카드 -->
+      <div class="ch-detail-card glass-card">
+        <p class="ch-detail-title">프로필</p>
+        <div class="ch-bio glass-card">
+          <img src="{% static 'img/isha_int.png' %}" alt="이샤 아이콘" class="ch-bio-icon">
+          <p class="ch-bio-text">
+            개인활동 버튜버 이샤입니다.<br>
+            하얀 북극여우의 모습으로, 캐스터를 지망하고 있습니다.
+          </p>
+        </div>
+
+        <div class="ch-stats-grid">
+          <div class="ch-stat">
+            <span class="ch-stat-label">생일</span>
+            <span class="ch-stat-value">2월 4일</span>
+          </div>
+          <div class="ch-stat">
+            <span class="ch-stat-label">소속</span>
+            <span class="ch-stat-value">개인</span>
+          </div>
+          <div class="ch-stat">
+            <span class="ch-stat-label">종족</span>
+            <span class="ch-stat-value">북극여우</span>
+          </div>
+          <div class="ch-stat">
+            <span class="ch-stat-label">팬네임</span>
+            <span class="ch-stat-value">이또</span>
+          </div>
+          <div class="ch-stat">
+            <span class="ch-stat-label">데뷔</span>
+            <span class="ch-stat-value">2025년</span>
+          </div>
+          <div class="ch-stat">
+            <span class="ch-stat-label">MBTI</span>
+            <span class="ch-stat-value">ENTJ</span>
+          </div>
+        </div>
+
+        <div class="ch-keyword-wrap">
+          <span class="ch-keyword-label">키워드</span>
+          <div class="ch-keywords">
+            <span class="ch-kw">노래</span>
+            <span class="ch-kw">멘헤라</span>
+            <span class="ch-kw">게임</span>
+            <span class="ch-kw">커버곡</span>
+            <span class="ch-kw">저챗</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 채널 통계 카드 -->
+      <div class="ch-channel-stats-card glass-card">
+        <p class="ch-detail-title">채널 통계</p>
+        <div class="ch-channel-stats-grid">
+
+          <div class="ch-channel-stat-item ch-stat-chzzk">
+            <div class="ch-cstat-platform">
+              <span class="ch-cstat-icon">🎮</span>
+              <span class="ch-cstat-platform-name">치지직</span>
+            </div>
+            <div class="ch-cstat-row">
+              <div class="ch-cstat">
+                <span class="ch-cstat-label">팔로워</span>
+                <span class="ch-cstat-value" id="chzzkFollowerCount">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ch-channel-stat-item ch-stat-youtube">
+            <div class="ch-cstat-platform">
+              <span class="ch-cstat-icon">▶</span>
+              <span class="ch-cstat-platform-name">유튜브</span>
+            </div>
+            <div class="ch-cstat-row">
+              <div class="ch-cstat">
+                <span class="ch-cstat-label">구독자</span>
+                <span class="ch-cstat-value" id="youtubeSubscriberCount">—</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="chzzk-hub reveal" id="chzzkHub">
+    <div class="section-head">
+      
+      <p class="section-kicker">Isha CHZZK</p>
+      <h2>치지직 허브</h2>
+      <p class="section-desc">
+        치지직 다시보기와 클립 영상을 확인할 수 있습니다.
+      </p>
+      <article class="video-side-card glass-card">
+        <span class="card-mini-badge">CHZZK Live</span>
+        <h3 id="youtubeLiveTitle">치지직 라이브 상태를 확인하는 중...</h3>
+        <p id="youtubeLiveDesc">잠시만 기다려주세요.</p>
+        <a id="youtubeLiveLink" href="https://chzzk.naver.com/" target="_blank" rel="noopener noreferrer" class="card-link">채널 바로가기</a>
+      </article>
+    </div>
+    
+
+    <div class="chzzk-tab-wrap" id="chzzkTabWrap">
+      <!-- JS로 탭 버튼 동적 생성 -->
+    </div>
+
+    <div class="youtube-grid" id="chzzkVideoGrid">
+      <div class="youtube-loading">Loading...</div>
+    </div>
+  </section>
+
+  <section class="video-hub reveal" id="videoHub">
+    <div class="video-hub-divider" aria-hidden="true"></div>
+    <div class="video-hub-bg" aria-hidden="true"></div>
+    <div class="video-hub-overlay" aria-hidden="true"></div>
+
+    <div class="section-head">
+      <p class="section-kicker">Isha YouTube</p>
+      <h2>유튜브 허브</h2>
+      <p class="section-desc">
+        유튜브에 업로드되어 있는 영상들을 모아두었습니다. 클릭 시 유튜브로 이동됩니다.
+      </p>
+    </div>
+
+    <div class="youtube-hub-meta">
+      <article class="video-side-card glass-card">
+        <span class="card-mini-badge">Latest Upload</span>
+        <h3 id="youtubeLatestTitle">최근 업로드를 불러오는 중...</h3>
+        <p id="youtubeLatestDesc">잠시만 기다려주세요.</p>
+        <a id="youtubeLatestLink" href="https://www.youtube.com/@ishawaddo" target="_blank" rel="noopener noreferrer" class="card-link">최신 영상 보기</a>
+      </article>
+    </div>
+
+    <div class="youtube-tab-wrap" id="youtubeTabWrap">
+      <!-- JS로 탭 버튼 동적 생성 -->
+    </div>
+
+    <div class="youtube-grid" id="youtubeVideoGrid">
+      <div class="youtube-loading">Loading...</div>
+    </div>
+  </section>
+
+  <section class="cafe-hub reveal" id="cafeHub">
+    <div class="section-head">
+      <p class="section-kicker">Isha Cafe</p>
+      <h2>공식 카페</h2>
+      <p class="section-desc">
+        이샤 공식 카페 이샷집센또의 최신 글을 확인할 수 있습니다.
+      </p>
+    </div>
+
+    <div class="cafe-tab-wrap" id="cafeTabWrap">
+    </div>
+
+    <div class="cafe-post-grid" id="cafePostGrid">
+      <div class="youtube-loading">Loading...</div>
+    </div>
+
+    <div class="cafe-more-wrap" id="cafeMoreWrap" style="display:none">
+      <a href="https://cafe.naver.com/ishawaddo" target="_blank" rel="noopener noreferrer" class="cafe-more-link">
+        카페에서 더보기 →
+      </a>
+    </div>
+  </section>
+
+  <div class="news-schedule-wrap">
+    <div class="news-schedule-bg" aria-hidden="true"></div>
+    <div class="news-schedule-overlay"></div>
+
+    <section class="updates reveal" id="updates">
+      <div class="section-head">
+        <p class="section-kicker">Isha Updates</p>
+        <h2>최신 소식</h2>
+        <p class="section-desc">
+          최근 등록된 공지 3개를 실시간으로 가져와 표시합니다.
+        </p>
+      </div>
+
+      <div class="update-grid" id="latestNewsGrid">
+        <article class="update-card large">
+          <span class="update-type">LOADING</span>
+          <h3>최신 공지를 불러오는 중...</h3>
+          <p>잠시만 기다려주세요.</p>
+          <a href="/news/" class="card-link">공지사항 페이지 이동</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="schedule reveal" id="schedule">
+      <div class="section-head">
+        <p class="section-kicker">Upcoming Schedule</p>
+        <h2>예정된 일정</h2>
+        <p class="section-desc">
+          오늘 기준으로 가장 가까운 예정 일정 5개를 순서대로 보여줍니다.
+        </p>
+      </div>
+
+      <div class="timeline" id="upcomingScheduleTimeline">
+        <article class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">LOADING</span>
+            <h3>예정 일정을 불러오는 중...</h3>
+            <p>잠시만 기다려주세요.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer reveal" id="contact">
+    <div class="footer-inner">
+      <p class="footer-line">
+        본 사이트 'Unofficial Isha'는 VTuber '이샤'님의 공식 웹 사이트가 아님을 명시합니다.
+      </p>
+      <div class="footer-links">
+        <a href="#about">Top</a>
+        <a href="#isha-profile">Profile</a>
+        <a href="#chzzkHub">CHZZK</a>
+        <a href="#videoHub">YouTube</a>
+        <a href="#cafeHub">Cafe</a>
+        <a href="#updates">Updates</a>
+        <a href="#schedule">Schedule</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/isha_status_main.js' %}"></script>
+{% endblock %}

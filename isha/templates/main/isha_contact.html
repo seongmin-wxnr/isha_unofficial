@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이샤 | 문의사항{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/isha_contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="isha-contact-page">
+  <div class="cosmic-bg">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="stars"></div>
+    <div class="grid-glow"></div>
+    <div class="dust-layer"></div>
+  </div>
+
+  <div class="news-top-bg" aria-hidden="true">
+    <div class="news-page-bg"></div>
+    <div class="news-top-overlay"></div>
+  </div>
+
+  <main class="news-main">
+    <section class="news-hero reveal">
+      <div class="section-head center">
+        <p class="section-kicker">Contact</p>
+        <h1 class="page-title">문의 <span>사항</span></h1>
+        <p class="page-desc">
+          궁금한 점이나 건의사항을 남겨주세요.<br>
+          문의글은 본인과 관리자만 열람할 수 있습니다.
+        </p>
+      </div>
+
+      {% if not request.user.is_authenticated %}
+      <div class="contact-login-notice glass-card">
+        <p>문의사항 작성 및 열람은 <strong>로그인 후</strong> 이용하실 수 있습니다.</p>
+        <a href="/login/" class="btn-submit">로그인하기</a>
+      </div>
+      {% endif %}
+    </section>
+
+    <section class="news-board reveal">
+      <div class="filter-row">
+        <div class="contact-status-tabs">
+          <button class="filter-btn active" data-status="all">전체</button>
+          <button class="filter-btn" data-status="pending">답변 대기</button>
+          <button class="filter-btn" data-status="answered">답변 완료</button>
+        </div>
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input class="search-input" type="text" placeholder="검색..." id="searchInput">
+        </div>
+      </div>
+
+      <div class="post-list" id="postList">
+        {% if not request.user.is_authenticated %}
+        <div class="contact-empty">
+          <p>로그인 후 문의사항을 확인할 수 있습니다.</p>
+        </div>
+        {% endif %}
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </section>
+  </main>
+</div>
+
+{% if request.user.is_authenticated %}
+<button class="admin-fab" id="writeFab" title="문의 작성" aria-label="문의 작성">＋</button>
+{% endif %}
+
+<div class="modal-overlay" id="readModal">
+  <div class="modal" id="readModalContent">
+    <div class="modal-header">
+      <div class="modal-tags" id="modalTags"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-meta-row" id="modalMeta"></div>
+    </div>
+    <div class="modal-divider"></div>
+    <div class="modal-body" id="modalBody"></div>
+
+    <div class="contact-reply-section" id="replySection" style="display:none">
+      <div class="reply-divider"></div>
+      <div class="reply-header">
+        <span class="reply-badge">관리자 답변</span>
+      </div>
+      <div class="reply-content" id="replyContent"></div>
+    </div>
+
+    {% if request.user.is_authenticated and request.user.isStaff %}
+    <div class="reply-form-section" id="replyFormSection">
+      <div class="reply-divider"></div>
+      <div class="form-group">
+        <label class="form-label">답변 작성</label>
+        <textarea class="form-textarea" id="replyInput" placeholder="답변을 입력하세요..." rows="4"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-submit" id="submitReplyBtn" type="button">답변 저장</button>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="modal-close-row">
+      <button class="btn-danger" id="deletePostBtn" type="button" style="display:none">삭제</button>
+      <button class="modal-close-btn" id="readModalClose" type="button">닫기</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="writeModal">
+  <div class="modal write-modal">
+    <h2 class="modal-title">
+      <span>문의사항 작성</span>
+    </h2>
+    <p class="editor-helper-text">
+      작성하신 문의글은 본인과 관리자만 열람할 수 있습니다.
+    </p>
+    <div class="form-group">
+      <label class="form-label">제목</label>
+      <input class="form-input" type="text" id="newTitle" placeholder="문의 제목을 입력하세요">
+    </div>
+    <div class="form-group">
+      <label class="form-label">내용</label>
+      <textarea class="form-textarea" id="newContent" placeholder="문의 내용을 상세히 작성해주세요..." rows="8"></textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn-cancel" id="writeModalClose" type="button">취소</button>
+      <button class="btn-submit" id="submitPostBtn" type="button">제출</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  window.IS_AUTH = "{{ request.user.is_authenticated|yesno:'true,false' }}" === "true";
+  window.ISHA_IS_STAFF = "{{ request.user.isStaff|yesno:'true,false' }}" === "true";
+</script>
+<script src="{% static 'js/isha_contact.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이샤 | 내가 이샤다!{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/isha_member.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="member-page">
+  <div class="cosmic-bg">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="stars"></div>
+    <div class="grid-glow"></div>
+    <div class="dust-layer"></div>
+  </div>
+
+  <section class="member-shell reveal" id="top">
+    <div class="member-shell-bg" aria-hidden="true"></div>
+    <div class="member-shell-overlay" aria-hidden="true"></div>
+
+    <div class="member-shell-inner">
+      <aside class="member-sidebar">
+        <div class="member-sidebar-head">
+          <p class="member-kicker">Isha Profile</p>
+          <h1>이샤</h1>
+          <p class="member-subtitle">내가 이샤다 !</p>
+        </div>
+
+        <nav class="member-nav" aria-label="Isha profile sections">
+          <button class="member-nav-item is-active" data-target="profile">이샤 프로필</button>
+          <button class="member-nav-item" data-target="mood">방송국</button>
+          <button class="member-nav-item" data-target="keyword">팬덤</button>
+          <button class="member-nav-item" data-target="highlight">더 알아보기</button>
+          <button class="member-nav-item" data-target="archive">노래들</button>
+        </nav>
+      </aside>
+
+      <div class="member-content-wrap">
+        <div class="member-content is-active" id="profile">
+          <div class="member-copy">
+            <p class="content-kicker">Profile</p>
+            <h2>ISHA</h2>
+            <p class="content-desc">
+              2025년 9월 27일에 새롭게 데뷔한 '이샤'를 소개합니다.
+              북극의 눈 처럼 하얀 마음을 가진 그녀는 이제 세상을 향해
+              한 발자국 내딛었습니다.
+            </p>
+
+            <div class="info-grid">
+              <div class="info-card">
+                <span class="info-label">이름</span>
+                <span class="info-value">이샤</span>
+              </div>
+              <div class="info-card">
+                <span class="info-label">종족</span>
+                <span class="info-value">북극여우</span>
+              </div>
+              <div class="info-card">
+                <span class="info-label">나이</span>
+                <span class="info-value">24</span>
+              </div>
+              <div class="info-card">
+                <span class="info-label">MBTI</span>
+                <span class="info-value">ENTJ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="member-visual">
+            <div class="member-image-frame">
+              <img src="{% static 'img/background_static/isha_fixed.png' %}" alt="이샤 대표 이미지" class="member-image">
+            </div>
+          </div>
+        </div>
+
+        <div class="member-content" id="mood">
+          <div class="member-copy">
+            <p class="content-kicker">LiveStream</p>
+            <h2>이샤의 방송국</h2>
+            <p class="content-desc">
+              이샤가 활동하는 공간들을 한 곳에 모아두었습니다.
+              생방송, 공식 유튜브, 다시보기 채널까지 한 번에 확인할 수 있어요.
+            </p>
+
+            <div class="detail-stack">
+              <article class="detail-card">
+                <h3>CHZZK</h3>
+                <p>이샤의 주 방송국입니다. 생방송을 가장 빠르게 만날 수 있는 공간이에요.</p>
+                <a href="https://chzzk.naver.com/live/d9c00ea08106b660e26abcd730e7d796" class="detail-link" target="_blank" rel="noopener noreferrer">바로가기</a>
+              </article>
+
+              <article class="detail-card">
+                <h3>유튜브</h3>
+                <p>이샤의 방송 하이라이트를 편집하여 올린 공식 채널입니다.</p>
+                <a href="https://www.youtube.com/@ishawaddo" class="detail-link" target="_blank" rel="noopener noreferrer">바로가기</a>
+              </article>
+
+              <article class="detail-card">
+                <h3>이샤 다시보기</h3>
+                <p>생방송을 놓친 분들을 위한 다시보기 채널입니다.</p>
+                <a href="https://www.youtube.com/channel/UCPhU0WdqQ1E-ESol8XPiHnA" class="detail-link" target="_blank" rel="noopener noreferrer">바로가기</a>
+              </article>
+            </div>
+          </div>
+
+          <div class="member-visual">
+            <div class="quote-panel">
+              <span class="quote-badge">IMPORTANT</span>
+              <p class="quote-title">방송 이용 시 주의</p>
+              <p class="quote-desc">
+                관련 규정을 숙지하지 않고 규정을 위반하면,
+                통보 없이 차단 혹은 벤을 당할 수 있어요 ㅠㅠ
+              </p>
+              <a href="/legal/" class="quote-link">관련 규정 확인하기</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="member-content" id="keyword">
+          <div class="member-copy">
+            <p class="content-kicker">Fandom</p>
+            <h2>이샤의 팬들, 이또</h2>
+            <p class="content-desc">
+              항상 고마운 존재인 이또들은 이샤와 함께 방송을 만들어가는 소중한 팬들입니다.
+            </p>
+
+            <div class="fandom-image-card">
+              <img src="{% static 'img/fan/fan_source.png' %}" alt="ittoimg" class="fandom-image">
+            </div>
+          </div>
+
+          <div class="member-visual">
+            <div class="side-note-card">
+              <h3>이또들의 분위기</h3>
+              <ul>
+                <li>때로는 장난스럽지만 한 마음으로 이샤를 응원하는 마음</li>
+                <li>서로를 아끼는 마음으로 존중하는 분위기</li>
+                <li>방송과 클립, 노래, 창작물 등을 공유하며 유대를 쌓습니다.</li>
+                <li>언제나 이샤 곁에 남아 있는 사람들입니다.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="member-content" id="highlight">
+          <div class="member-copy">
+            <p class="content-kicker">More About Isha</p>
+            <h2>이샤를 더 알아보기</h2>
+            <p class="content-desc">
+              이샤를 단순히 “하얀 분위기의 버튜버”로만 보기엔 부족해요.
+              아래 포인트를 보면 이샤의 매력을 더 입체적으로 이해할 수 있습니다.
+            </p>
+
+            <div class="detail-stack">
+              <article class="detail-card">
+                <h3>새하얀 첫인상</h3>
+                <p>
+                  북극의 눈처럼 맑고 차분한 이미지가 가장 먼저 떠오르는 버튜버입니다.
+                  비주얼만으로도 이샤만의 분위기가 확실하게 느껴집니다.
+                </p>
+              </article>
+
+              <article class="detail-card">
+                <h3>분위기와 말투</h3>
+                <p>
+                  강요하는 분위기가 아닌 팬들과의 소통을 통해 결정을 하고 누구보다 팬들을 생각하는 마음이 큰 북극 여우 입니다.
+                  가끔 나오는 애교, 멘헤라 모드가 팬들을 설레게 합니다. (지극히 주관적인 의견)
+                </p>
+              </article>
+
+              <article class="detail-card">
+                <h3>멘헤라</h3>
+                <p>
+                  가끔 발동하는 "멘헤라" 모드도 팬들을 설레게 하는 포인트 입니다 꼭 생방송 챙겨보세요. (지극히 주관적인 의견)
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <div class="member-visual">
+            <div class="mini-panel-grid">
+              <div class="mini-panel">북극여우</div>
+              <div class="mini-panel">멘헤라</div>
+              <div class="mini-panel">애교</div>
+              <div class="mini-panel">맑은 마음</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="member-content songs-layout" id="archive">
+          <div class="member-copy">
+            <p class="content-kicker">Songs</p>
+            <h2>이샤의 노래들</h2>
+            <p class="content-desc">
+              이샤의 노래들을 듣고 한층 더 이샤에 빠져보세요 !
+            </p>
+            <div class="member-visual">
+            <div class="archive-card">
+              <span class="archive-badge">Songs Archive</span>
+              <h3>이샤의 목소리를 담는 공간</h3>
+              <p>
+                이샤의 커버 곡 모음집입니다.
+                이샤 목소리의 고유 매력에 빠져보세요.
+              </p>
+            </div>
+          </div>
+            <div class="song-grid">
+              <article class="song-card">
+                <div class="song-video-wrap">
+                  <iframe
+                    src="https://www.youtube-nocookie.com/embed/aQVMGE1IQkY"
+                    title="Isha_Cover"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                <div class="song-info">
+                  <h3>Ray - Isha (Cover)</h3>
+                  <p>최근 커버곡 Ray 입니다.</p>
+                </div>
+              </article>
+              <!-- https://www.youtube.com/watch?v=JBbvwqAusG0 -->
+              <article class="song-card">
+                <div class="song-video-wrap">
+                  <iframe
+                    src="https://www.youtube-nocookie.com/embed/JBbvwqAusG0?rel=0&modestbranding=1"
+                    title="isha_cover"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                <div class="song-info">
+                  <h3>Be I - Isha(Cover)</h3>
+                  <p>Hebi. 의 오리지널 곡 "Be I"를 이샤의 목소리로 녹여냈습니다.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/isha_member.js' %}"></script>
+{% endblock %}

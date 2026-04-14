@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Isha{% endblock %}</title>
+
+  <link rel="icon" type="image/png" href="{% static 'img/fan/fan_source.png' %}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <header class="topbar" id="home">
+    <img
+      src="{% static 'img/favicon.png' %}"
+      alt="Isha logo"
+      class="logo-img"
+      onclick="navigateTo('/')"
+    >
+
+    <nav class="nav desktop-nav" aria-label="Primary navigation" style="font-weight: bold;">
+      <a href="#about" onclick="navigateTo('/')">소개</a>
+      <a href="#members" onclick="navigateTo('/isha/')">이샤</a>
+      <a href="#updates" onclick="navigateTo('/news/')">소식</a>
+      <a href="#schedule" onclick="navigateTo('/schedule/')">일정</a>
+      <a href="#contact" onclick="navigateTo('/contact/')">문의사항</a>
+      <a href="#legal" onclick="navigateTo('/legal/')">가이드라인</a>
+      <a href="#live" onclick="navigateTo('/live/')">하이샤!</a>
+
+      {% if request.user.is_authenticated %}
+        <span class="nav-user">
+          {{ request.user.username }}
+          {% if request.user.isStaff %}
+            <span class="staff-badge" style="color:#f75151;">관리자</span>
+          {% endif %}
+        </span>
+
+        <a href="/logout/">로그아웃</a>
+      {% else %}
+        <a href="/register/">회원가입</a>
+        <a href="/login/">로그인</a>
+      {% endif %}
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <aside class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" style="font-weight: bold;">
+    <a href="#about" onclick="navigateTo('/')">소개</a>
+    <a href="#members" onclick="navigateTo('/isha/')">이샤</a>
+    <a href="#updates" onclick="navigateTo('/news/')">소식</a>
+    <a href="#schedule" onclick="navigateTo('/schedule/')">일정</a>
+    <a href="#contact" onclick="navigateTo('/contact/')">문의사항</a>
+    <a href="#legal" onclick="navigateTo('/legal/')">가이드라인</a>
+    <a href="#live" onclick="navigateTo('/live/')">하이샤!</a>
+
+    {% if request.user.is_authenticated %}
+      <div class="mobile-user">
+        {{ request.user.username }}
+        {% if request.user.isStaff %}
+          <span class="staff-badge" style="color:#f94949;">관리자</span>
+        {% endif %}
+      </div>
+
+      <a href="/logout/">로그아웃</a>
+    {% else %}
+      <a href="/register/">회원가입</a>
+      <a href="/login/">로그인</a>
+    {% endif %}
+  </aside>
+
+  <script>
+    function navigateTo(url) {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = url;
+      }, 400);
+    }
+
+    // 🔥 모바일 메뉴 토글
+    document.addEventListener("DOMContentLoaded", function () {
+      const navToggle = document.getElementById("navToggle");
+      const mobileNav = document.getElementById("mobileNav");
+
+      if (!navToggle || !mobileNav) return;
+
+      navToggle.addEventListener("click", function () {
+        navToggle.classList.toggle("active");
+        mobileNav.classList.toggle("show");
+      });
+    }); 
+  </script>
+
+{% block content %}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+</html>

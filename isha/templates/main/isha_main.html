@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이샤 | Unofficial Fan Site{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/isha_main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="isha-page">
+  <div class="cosmic-bg">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="stars"></div>
+    <div class="grid-glow"></div>
+    <div class="dust-layer"></div>
+  </div>
+
+  <section class="hero reveal" id="about">
+    <div class="hero-bg-media" aria-hidden="true">
+      <video class="section-bg-video hero-bg-video" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'img/background/isha0204.mp4' %}" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="hero-kicker">Isha Project</p>
+        <h1>
+          눈 처럼 하얀 마음<br>
+          즐거움을 주는<br>
+          이샤 입니다.
+        </h1>
+        <p class="hero-desc">
+          이샤의 모든 것을 담아낸 공간입니다.<br>
+          함께 추억을 공유해요.<br>
+          이샤는 유명한 내 아내임
+        </p>
+
+        <div class="hero-actions">
+          <a href="#isha-profile" class="btn btn-primary">이샤 소개 보기</a>
+          <a href="#updates" class="btn btn-secondary">최신 소식 보기</a>
+        </div>
+
+        <ul class="hero-meta">
+          <li>
+            <span class="meta-label">CHZZK</span>
+            <span class="meta-value">이샤</span>
+          </li>
+          <li>
+            <span class="meta-label">버그 제보</span>
+            <span class="meta-value">카페에 부탁드려요</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-frame floating">
+          <div class="visual-glass video-glass">
+            <div class="video-wrap">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/aQVMGE1IQkY"
+                title="Stellive YouTube Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured reveal" id="isha-profile">
+    <div class="featured-bg" aria-hidden="true"></div>
+    <div class="featured-overlay"></div>
+
+    <div class="section-head">
+      <p class="section-kicker">Isha Profile</p>
+      <h2>이샤를 소개합니다</h2>
+      <p class="section-desc">
+        캐스터가 꿈인 북극여우 '이샤'를 소개합니다 ! (짞짞)
+      </p>
+    </div>
+
+    <div class="featured-showcase">
+      <div class="showcase-copy">
+        <span class="showcase-badge">Isha</span>
+        <h3 id="featuredTitle">하얀 별빛을 닮은 존재</h3>
+        <p id="featuredDesc">
+          이샤는 깨끗하고 몽환적인 분위기 속에서 자신만의 존재감을 만들어가는 버튜버입니다.
+          부드러운 인상과 차분한 감성, 그리고 빛나는 무드가 자연스럽게 기억에 남는 매력을 만듭니다.
+        </p>
+
+        <div class="showcase-meta">
+          <span id="featuredIndex">WHITE COSMOS</span>
+          <span class="showcase-divider"></span>
+          <span id="featuredTag">MYSTIC · PURE · SOFT</span>
+        </div>
+
+        <div class="showcase-actions">
+          <a href="/isha/" class="btn btn-primary">소개 페이지 이동</a>
+        </div>
+      </div>
+
+      <div class="showcase-visual">
+        <div class="showcase-image-frame">
+          <img
+            id="featuredImage"
+            src="{% static 'img/isha_int.png' %}"
+            alt="이샤 대표 이미지"
+            class="showcase-image"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="news-schedule-wrap">
+    <div class="news-schedule-bg" aria-hidden="true"></div>
+    <div class="news-schedule-overlay"></div>
+
+    <section class="updates reveal" id="updates">
+      <div class="section-head">
+        <p class="section-kicker">Isha Updates</p>
+        <h2>최신 소식</h2>
+        <p class="section-desc">
+          공지사항, 이샤의 소식 등을 한눈에 확인 할 수 있어요
+        </p>
+      </div>
+
+      <div class="update-grid" id="latestNewsGrid">
+        <article class="update-card large">
+          <span class="update-type">LOADING</span>
+          <h3>최신 공지를 불러오는 중...</h3>
+          <p>잠시만 기다려주세요.</p>
+          <a href="/news/" class="card-link">공지사항 페이지 이동</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="schedule reveal" id="schedule">
+      <div class="section-head">
+        <p class="section-kicker">Schedule Preview</p>
+        <h2>예정된 일정</h2>
+        <p class="section-desc">
+          이샤의 방송 일정등 앞으로의 일정을 한눈에 확인 할 수 있어요.
+        </p>
+      </div>
+
+      <div class="timeline" id="upcomingScheduleTimeline">
+        <article class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">LOADING</span>
+            <h3>예정 일정을 불러오는 중...</h3>
+            <p>잠시만 기다려주세요.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer reveal" id="contact">
+    <div class="footer-inner">
+      <p class="footer-line">
+        본 사이트 'Unofficial Isha'는 VTuber '이샤'님의 공식 웹 사이트가 아님을 명시합니다.
+      </p>
+      <div class="footer-links">
+        <a href="#about">Top</a>
+        <a href="#isha-profile">Profile</a>
+        <a href="#updates">Updates</a>
+        <a href="#schedule">Schedule</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const card = document.querySelector(".featured-showcase");
+
+  if (card) {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty("--x", `${x}px`);
+      card.style.setProperty("--y", `${y}px`);
+    });
+  }
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/isha_main.js' %}"></script>
+{% endblock %}

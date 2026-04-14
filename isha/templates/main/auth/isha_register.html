@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이샤 | 회원가입{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/isha_auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page auth-register-page">
+  <div class="cosmic-bg">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="stars"></div>
+    <div class="grid-glow"></div>
+    <div class="dust-layer"></div>
+  </div>
+
+  <section class="auth-hero reveal" id="top">
+    <div class="auth-hero-bg auth-register-bg" aria-hidden="true"></div>
+    <div class="auth-hero-overlay" aria-hidden="true"></div>
+
+    <div class="auth-hero-inner">
+      <div class="auth-copy">
+        <p class="hero-kicker">Create Account</p>
+        <h1>
+          이샤를 향한<br>
+          모든 기록이<br>
+          시작되는 곳
+        </h1>
+        <p class="hero-desc">
+          현재 관리자 권한 계정 구분을 위해 만들어둔 기능입니다. 향후 확장 예정입니다.<br>
+          이 계정은 이샤 비공식 팬 웹페이지 전용 계정입니다.
+        </p>
+
+        <ul class="auth-meta">
+          <li>
+            <span class="meta-label">Isha Unofficial</span>
+            <span class="meta-value">비공식 팬 제작 사이트</span>
+          </li>
+          <li>
+            <span class="meta-label">주의사항</span>
+            <span class="meta-value">공식 계정과는 별개입니다.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="auth-panel-wrap">
+        <div class="auth-panel reveal">
+          <div class="auth-panel-top">
+            <span class="auth-badge">Register</span>
+            <h2>회원가입</h2>
+            <p>간단한 정보 입력 후 팬페이지 계정을 생성하세요.</p>
+          </div>
+
+          {% if messages %}
+          <div class="auth-messages">
+            {% for message in messages %}
+            <div class="auth-message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <div class="auth-switch">
+            <a href="/register/" class="auth-switch-link is-active">회원가입</a>
+            <a href="/login/" class="auth-switch-link">로그인</a>
+          </div>
+
+          <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+
+            <div class="auth-field">
+              <label for="username">아이디</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value="{{ saved_username|default:'' }}"
+                placeholder="사용할 아이디를 입력하세요"
+                autocomplete="username"
+                required
+              >
+            </div>
+
+            <div class="auth-field">
+              <label for="email">이메일</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ saved_email|default:'' }}"
+                placeholder="이메일을 입력하세요"
+                autocomplete="email"
+                required
+              >
+            </div>
+
+            <div class="auth-field">
+              <label for="nickname">닉네임 <span class="label-sub">선택</span></label>
+              <input
+                type="text"
+                id="nickname"
+                name="nickname"
+                value="{{ saved_nickname|default:'' }}"
+                placeholder="닉네임을 입력하세요"
+                autocomplete="nickname"
+              >
+            </div>
+
+            <div class="auth-field">
+              <label for="password1">비밀번호</label>
+              <div class="auth-input-group">
+                <input
+                  type="password"
+                  id="password1"
+                  name="password1"
+                  placeholder="비밀번호를 입력하세요"
+                  autocomplete="new-password"
+                  required
+                >
+                <button type="button" class="auth-toggle-password" data-target="password1" aria-label="비밀번호 표시 전환">
+                  보기
+                </button>
+              </div>
+            </div>
+
+            <div class="auth-field">
+              <label for="password2">비밀번호 확인</label>
+              <div class="auth-input-group">
+                <input
+                  type="password"
+                  id="password2"
+                  name="password2"
+                  placeholder="비밀번호를 다시 입력하세요"
+                  autocomplete="new-password"
+                  required
+                >
+                <button type="button" class="auth-toggle-password" data-target="password2" aria-label="비밀번호 확인 표시 전환">
+                  보기
+                </button>
+              </div>
+            </div>
+
+            <label class="auth-check">
+              <input type="checkbox" name="agree" required>
+              <span>팬페이지 이용 목적의 계정 생성에 동의합니다.</span>
+            </label>
+
+            <button type="submit" class="btn btn-primary auth-submit">회원가입</button>
+          </form>
+
+          <div class="auth-bottom">
+            <p>이미 계정이 있나요?</p>
+            <a href="/login/" class="mini-link">로그인으로 이동</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/isha_auth.js' %}"></script>
+{% endblock %}
