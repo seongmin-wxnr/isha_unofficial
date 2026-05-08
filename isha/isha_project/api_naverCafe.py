@@ -138,11 +138,11 @@ def api_isha_cafe_sync(request):
 
 @require_GET
 def api_isha_cafe_posts(request):
-    staff_error = api_protection.BlockEndPoint._require_staff(request)
-    if staff_error:
-        return staff_error
-    else:
-        pass
+    # staff_error = api_protection.BlockEndPoint._require_staff(request)
+    # if staff_error:
+    #     return staff_error
+    # else:
+    #     pass
     board_type = (request.GET.get("type") or "").strip().lower()
     limit = min(int(request.GET.get("limit", 20)), 100)
 
