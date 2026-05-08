@@ -1,3 +1,6 @@
+<!-- 매니저님 요청으로 회원가입 페이지 기능 및 페이지 정보 비활성화 -->
+ <!-- 로그인 기능은 관리자 구분을 위해 로그인/로그아웃은 남겨두겠습니다.-->
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -41,8 +44,8 @@
             <span class="meta-value">아이디 / 비밀번호</span>
           </li>
           <li>
-            <span class="meta-label">안내</span>
-            <span class="meta-value">팬페이지 전용 계정 사용</span>
+            <span class="meta-label">목적</span>
+            <span class="meta-value">관리자 유저 구분</span>
           </li>
         </ul>
       </div>
@@ -62,11 +65,6 @@
             {% endfor %}
           </div>
           {% endif %}
-
-          <div class="auth-switch">
-            <a href="/register/" class="auth-switch-link">회원가입</a>
-            <a href="/login/" class="auth-switch-link is-active">로그인</a>
-          </div>
 
           <form method="post" class="auth-form" novalidate>
             {% csrf_token %}
@@ -112,10 +110,10 @@
             <button type="submit" class="btn btn-primary auth-submit">로그인</button>
           </form>
 
-          <div class="auth-bottom">
+          <!-- <div class="auth-bottom">
             <p>아직 계정이 없나요?</p>
             <a href="/register/" class="mini-link">회원가입으로 이동</a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
