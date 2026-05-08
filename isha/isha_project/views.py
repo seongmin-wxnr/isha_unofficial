@@ -29,7 +29,6 @@ def isha_schedule_rendering(request):
 def isha_status_main(request):
     return render(request, "main/status/isha_status_main.html")
 
-
 @require_http_methods(["GET"])
 def isha_contact_rendering(request):
     if not request.user.is_authenticated:
