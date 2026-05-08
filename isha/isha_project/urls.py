@@ -5,12 +5,17 @@ from . import isha_backend
 from . import api_chzzk
 from . import api_youtube
 from . import api_naverCafe
+from . import isha_block_api
 
 urlpatterns = [
     ## page render path
     path("", views.isha_main_rendering, name="isha"),
 
-    path("register/", isha_backend.isha_userpageRender.isha_register_rendering, name="isha_register"),
+    # auth 관련 기능들 전부 비활성화 -> 마찬가지로 매니저님 요청입니다.
+
+    # path("register/", isha_backend.isha_userpageRender.isha_register_rendering, name="isha_register"),
+
+    #path("register/", isha_block_api._blocked_content_, name="isha_blocked"),
     path("login/", isha_backend.isha_userpageRender.isha_login_rendering, name="isha_login"),
     path("logout/", isha_backend.isha_logout, name="isha_logout"),
     path("schedule/", views.isha_schedule_rendering, name="schedule"),
@@ -67,7 +72,6 @@ urlpatterns = [
     path("api/isha/contact/<int:post_id>/", isha_backend.api_isha_contact_detail, name="api_isha_contact_detail"),
     path("api/isha/contact/<int:post_id>/reply/", isha_backend.api_isha_contact_reply, name="api_isha_contact_reply"),
     path("api/isha/contact/<int:post_id>/delete/", isha_backend.api_isha_contact_delete, name="api_isha_contact_delete"),
-
     ## other url path
     re_path(r'^(?!api/).*$', views.isha_main_rendering),
 ]
